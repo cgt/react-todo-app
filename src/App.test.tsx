@@ -9,7 +9,7 @@ describe('App', () => {
   let todoNameInputField: HTMLInputElement;
 
   beforeEach(() => {
-    r = render(<App/>);
+    r = render(<App />);
     todoNameInputField = r.getByTestId("todo-name") as HTMLInputElement;
   });
 
