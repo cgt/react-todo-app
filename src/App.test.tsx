@@ -6,14 +6,17 @@ import userEvent from "@testing-library/user-event";
 describe('App', () => {
 
   let r: RenderResult;
+  let todoNameInputField: HTMLInputElement;
+  // let getTodoNameInputField: () => HTMLInputElement;
 
   beforeEach(() => {
     r = render(<App/>);
-  })
+    todoNameInputField = r.getByTestId("todo-name") as HTMLInputElement;
+  });
+
 
   it('add todo with custom name', () => {
-    const input = r.getByTestId("todo-name");
-    userEvent.type(input, "custom TODO");
+    userEvent.type(todoNameInputField, "custom TODO");
     const button = r.getByText('Add todo');
     userEvent.click(button);
     expect(r.getAllByText('custom TODO')).toHaveLength(1);
@@ -21,14 +24,13 @@ describe('App', () => {
 
   it('does not allow adding empty todo', () => {
     const addTodobutton = r.getByText('Add todo');
-    const todoName = r.getByTestId('todo-name');
-    userEvent.type(todoName, '');
+    userEvent.type(todoNameInputField, '');
     expect(addTodobutton).toBeDisabled();
   });
 
   it('after adding a todo, it clears the input field', () => {
     const addTodobutton = r.getByText('Add todo');
-    const todoName = r.getByTestId('todo-name') as HTMLInputElement;
+    const todoName = todoNameInputField;
     userEvent.type(todoName, 'Test');
     userEvent.click(addTodobutton);
     expect(todoName.value).toBe("");
@@ -36,17 +38,15 @@ describe('App', () => {
 
   it('does not allow adding todo with only whitespace', () => {
     const addTodobutton = r.getByText('Add todo');
-    const todoName = r.getByTestId('todo-name') as HTMLInputElement;
-    userEvent.type(todoName, ' ');
+    userEvent.type(todoNameInputField, ' ');
     expect(addTodobutton).toBeDisabled();
   })
 
   it('does not allow multiple todos with the same text', () => {
     const addTodobutton = r.getByText('Add todo');
-    const todoName = r.getByTestId('todo-name') as HTMLInputElement;
-    userEvent.type(todoName, 'my TODO');
+    userEvent.type(todoNameInputField, 'my TODO');
     userEvent.click(addTodobutton);
-    userEvent.type(todoName, 'my TODO');
+    userEvent.type(todoNameInputField, 'my TODO');
     expect(r.getAllByText('my TODO')).toHaveLength(1);
   })
 
