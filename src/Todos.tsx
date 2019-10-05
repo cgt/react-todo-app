@@ -9,7 +9,7 @@ interface TodoProps {
 const Todos: React.FC<TodoProps> = (props) => {
   let { todos } = props;
   return <ul data-testid="todo-list">
-    {todos.map(todo => <li>{todo}</li>)}
+    {todos.map((todo, i) => <li key={i}>{todo}</li>)}
   </ul>;
 }
 
