@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Todos from "./Todos";
 
+export interface Todo {
+	name: string;
+}
+
 export const App: React.FC = () => {
-	const [todos, setTodos] = useState<string[]>([]);
+	const [todos, setTodos] = useState<Todo[]>([]);
 	const [currentTodoName, setCurrentTodoName] = useState<string>("")
 
 	const changeHandling = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,8 +15,8 @@ export const App: React.FC = () => {
 	}
 
 	const clickHandler = () => { 
-		if (!todos.some(todo => (todo===currentTodoName))){
-			setTodos([...todos, currentTodoName]);
+		if (!todos.some(todo => (todo.name===currentTodoName))){
+			setTodos([...todos, {name: currentTodoName}]);
 		} 
 		setCurrentTodoName("");
 	}
