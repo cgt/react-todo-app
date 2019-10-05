@@ -7,7 +7,6 @@ describe('App', () => {
 
   let r: RenderResult;
   let todoNameInputField: HTMLInputElement;
-  // let getTodoNameInputField: () => HTMLInputElement;
 
   beforeEach(() => {
     r = render(<App/>);
