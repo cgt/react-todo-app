@@ -48,4 +48,12 @@ describe('App', () => {
     expect(r.getAllByText('my TODO')).toHaveLength(1);
   })
 
+
+  it('can mark a todo as done', () => {
+    addExampleTodo("my TODO");
+    const markAsDoneButton = r.getByTestId('mark-as-done-button') as HTMLInputElement;
+    userEvent.click(markAsDoneButton);
+    expect(markAsDoneButton.checked).toBeTrue();
+  })
+
 });
