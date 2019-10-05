@@ -14,10 +14,4 @@ it('renders a list of todos', () => {
 it('render one todo', () => {
   const todos: string[] = [];
   render(<Todos todos={todos} />);
-})
-
-it('adds todos', () => {
-  const todos: string[] = [""];
-  render(<Todos todos={todos} />);
-
-})
+});

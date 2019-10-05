@@ -4,6 +4,9 @@ import { render } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 
 it('adds todos', () => {
-  const { getByLabelText } = render(<App />);
-  expect(getByLabelText('Add text')).toBeInTheDocument();
+  const { getByText } = render(<App />);
+  const button = getByText('Add text');
+  expect(button).toBeInTheDocument();
+  userEvent.click(button);
+  expect(getByText('my TODO')).toBeInTheDocument();
 })

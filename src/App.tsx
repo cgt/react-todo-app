@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Todos from "./Todos";
 
 export const App: React.FC = () => {
-	return <> hello world
-		<Todos todos={[]} />
+	const [todos, setTodos] = useState<string[]>([]);
+
+	return <>
+		<button onClick={() => { setTodos(["my TODO"])}}>Add text</button>
+		<Todos todos={todos} />
 	</>;
 }
