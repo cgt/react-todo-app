@@ -13,11 +13,14 @@ describe('App', () => {
     todoNameInputField = r.getByTestId("todo-name") as HTMLInputElement;
   });
 
-
-  it('add todo with custom name', () => {
-    userEvent.type(todoNameInputField, "custom TODO");
+  function addExampleTodo(name: string) {
+    userEvent.type(todoNameInputField, name);
     const button = r.getByText('Add todo');
     userEvent.click(button);
+  }
+
+  it('add todo with custom name', () => {
+    addExampleTodo("custom TODO");
     expect(r.getAllByText('custom TODO')).toHaveLength(1);
   })
 
@@ -28,10 +31,8 @@ describe('App', () => {
   });
 
   it('after adding a todo, it clears the input field', () => {
-    const addTodobutton = r.getByText('Add todo');
     const todoName = todoNameInputField;
-    userEvent.type(todoName, 'Test');
-    userEvent.click(addTodobutton);
+    addExampleTodo("Test")
     expect(todoName.value).toBe("");
   })
 
@@ -42,10 +43,8 @@ describe('App', () => {
   })
 
   it('does not allow multiple todos with the same text', () => {
-    const addTodobutton = r.getByText('Add todo');
-    userEvent.type(todoNameInputField, 'my TODO');
-    userEvent.click(addTodobutton);
-    userEvent.type(todoNameInputField, 'my TODO');
+    addExampleTodo('my TODO');
+    addExampleTodo('my TODO');
     expect(r.getAllByText('my TODO')).toHaveLength(1);
   })
 
