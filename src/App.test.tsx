@@ -54,6 +54,7 @@ describe('App', () => {
     const markAsDoneButton = r.getByTestId('mark-as-done-button') as HTMLInputElement;
     userEvent.click(markAsDoneButton);
     expect(markAsDoneButton.checked).toBeTrue();
+    expect(r.getByText('my TODO')).toHaveClass('completed-todo');
   })
 
 });
